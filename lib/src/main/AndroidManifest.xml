@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mo.lib">
+    <!--网络权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--SD卡写入权限 数据库用-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>
