@@ -16,7 +16,7 @@ import java.net.UnknownHostException;
  * @ data：2018/9/19
  * @ 功能：
  */
-public abstract class KCallBack<T> implements Callback.CommonCallback<String> {
+public  class KCallBack<T> implements Callback.CommonCallback<String> {
     /**
      * 请求结果
      */
@@ -45,6 +45,10 @@ public abstract class KCallBack<T> implements Callback.CommonCallback<String> {
         this.isJson = isJson;
     }
 
+    public KCallBack(String tag, boolean isJson) {
+        this.tag = tag;
+        this.isJson = isJson;
+    }
 
     /**
      * 取消
@@ -62,53 +66,6 @@ public abstract class KCallBack<T> implements Callback.CommonCallback<String> {
         LogUtil.i(tag + ":网络请求失败=" + ex != null ? ex.getMessage().toString() : "自定义的");
         isError = true;
         ex.printStackTrace();
-        if (ex instanceof HttpException) {
-            HttpException httpException = (HttpException) ex;
-            int code = httpException.getCode();
-            if (code == 401) {
-//              清除本地缓存 190320 嘉哥说不退出登录，改成提示
-//                cleanAcount();
-                LogUtil.i("您没有此功能的操作权限！");
-            }
-            if (code == 402) {
-//                new IosAlertDialog(k.app()).builder().setCancelable(false).setTitle("温馨提示").setMsg("该账户已被冻结，请联系客服！").setPositiveButton("确定", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-                LogUtil.i("该账户已被冻结，请联系客服！");
-//                        Intent intent = new Intent(k.app(), LoginActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        k.app().startActivity(intent);
-//                    }
-//                }).show();
-//                SpfModle.cleanLoginInfo();
-            }
-            if (code == 403) {
-                LogUtil.i("没权限");
-            }
-            if (code == 404) {
-                LogUtil.i("呼叫后台！" + tag + "404了");
-            }
-            if (code == 405) {
-                LogUtil.i("请求被拒绝，切换POST或GET请求");
-            }
-            //被顶号
-            if (code == 417) {
-                LogUtil.i("被顶号");
-            }
-            if (code == 500) {
-                LogUtil.i("呼叫后台！500了");
-            }
-            if (code == 504) {
-                LogUtil.i("网络请求超时,请重试");
-
-            }
-        } else if (ex instanceof ConnectException) {
-            LogUtil.i("端口被占用，请重启应用");
-        } else if (ex instanceof UnknownHostException) {
-            LogUtil.i("当前网络已断开,请检查您的网络连接");
-        } else if (ex instanceof SocketTimeoutException) {
-            LogUtil.i("网络请求超时");
-        }
     }
 
     /**
@@ -118,18 +75,9 @@ public abstract class KCallBack<T> implements Callback.CommonCallback<String> {
     public void onFinished() {
         if (!isError && httpReault != null) {
             LogUtil.i(tag + ":网络请求完成");
-            if (isJson) {
-                onSuccess1((T) new Gson().fromJson(httpReault, getTClass()));
-            } else {
-                onSuccess1((T) httpReault);
-            }
         }
     }
 
-    /**
-     * 抽象方法，对外必现
-     */
-    protected abstract void onSuccess1(T t);
 
     /**
      * 成功
