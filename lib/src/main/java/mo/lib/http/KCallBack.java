@@ -1,22 +1,16 @@
 package mo.lib.http;
 
-import com.google.gson.Gson;
-
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
-import org.xutils.ex.HttpException;
 
 import java.lang.reflect.ParameterizedType;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
 
 /**
  * @ author：mo
  * @ data：2018/9/19
  * @ 功能：
  */
-public  class KCallBack<T> implements Callback.CommonCallback<String> {
+public class KCallBack<T> implements Callback.CommonCallback<String> {
     /**
      * 请求结果
      */
@@ -47,6 +41,14 @@ public  class KCallBack<T> implements Callback.CommonCallback<String> {
 
     public KCallBack(String tag, boolean isJson) {
         this.tag = tag;
+        this.isJson = isJson;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public void setJson(boolean isJson) {
         this.isJson = isJson;
     }
 
