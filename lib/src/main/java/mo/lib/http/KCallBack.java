@@ -20,19 +20,19 @@ public  class KCallBack<T> implements Callback.CommonCallback<String> {
     /**
      * 请求结果
      */
-    private String httpReault = "";
+    protected String httpReault = "";
     /**
      * 是否报错
      */
-    private boolean isError = false;
+    protected boolean isError = false;
     /**
      * log标识，打印信息用
      */
-    private String tag = "";
+    protected String tag = "";
     /**
      * 是否解析数据，默认true，（在有些时候，不需要知道返回的数据是什么，只要成功就可以了，但是T给String的话解析会报错）
      */
-    private boolean isJson = true;
+    protected boolean isJson = true;
 
     public KCallBack() {
     }
