@@ -92,7 +92,7 @@ public  class KCallBack<T> implements Callback.CommonCallback<String> {
     /**
      * 获取类class（只在当前类里生效，外部调用无效）
      */
-    private Class<T> getTClass() {
+    protected Class<T> getTClass() {
         Class<T> tClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         return tClass;
     }
