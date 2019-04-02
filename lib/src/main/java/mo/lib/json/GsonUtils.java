@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonNull;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * @ author：mo
@@ -48,4 +49,29 @@ public enum GsonUtils {
     public <T> Object fromJson(String json, Class<T> classOfT) {
         return mGson.fromJson(json, (Type) classOfT);
     }
+    /**
+     * 用来将 JSON串 转为对象，此方法可用来转带泛型的集合，
+     * 如：Type 为 new TypeToken<List<T>>(){}.getType()，
+     * 其它类也可以用此方法调用，就是将List<T>替换为你想要转成的类
+     *
+     * @param json    json串
+     * @param typeOfT 需要转换的类class
+     * @return
+     */
+    public Object fromJson(String json, Type typeOfT) {
+        return mGson.fromJson(json, typeOfT);
+    }
+    /**
+     * 用来将 JSON串 转为对象，此方法可用来转带泛型的集合
+     * 如：Type为 new TypeToken<List<T>>(){}.getType()其它类也可以用此方法调用，
+     * 就是将List<T>替换为你想要转成的类
+     *
+     * @param json
+     * @param typeOfT
+     * @return
+     */
+    public List<Object> fromJsonArray(String json, Type typeOfT) {
+        return mGson.fromJson(json, typeOfT);
+    }
+
 }
