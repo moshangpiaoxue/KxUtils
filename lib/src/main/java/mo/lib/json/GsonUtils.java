@@ -2,6 +2,7 @@ package mo.lib.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonNull;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -60,6 +61,10 @@ public enum GsonUtils {
      */
     public Object fromJson(String json, Type typeOfT) {
         return mGson.fromJson(json, typeOfT);
+    }
+    public <T>Object  fromJson(String json) {
+        return mGson.fromJson(json, new TypeToken<T>() {
+        }.getType());
     }
     /**
      * 用来将 JSON串 转为对象，此方法可用来转带泛型的集合
