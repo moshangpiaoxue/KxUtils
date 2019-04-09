@@ -2,9 +2,15 @@ package mo.lib.http;
 
 
 import org.xutils.common.Callback;
+import org.xutils.common.util.KeyValue;
 import org.xutils.common.util.LogUtil;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
 import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ author：mo
@@ -50,11 +56,19 @@ public class KHttpUtils {
     public static Callback.Cancelable UpLoadFile(RequestParams params, Callback.CommonCallback callback) {
         //设置表单上传
         params.setMultipart(true);
+        params.setAsJsonContent(true);
         //打印请求信息
         LogUtil.i("上传文件==" + params.toString());
         return x.http().post(params, callback);
     }
 
+    public static Callback.Cancelable UpLoadFile(RequestParams params, File file, Callback.CommonCallback callback) {
+        List<KeyValue> list = new ArrayList<>();
+        list.add(new KeyValue("file", file));
+        MultipartBody body = new MultipartBody(list, "UTF-8");
+        params.setRequestBody(body);
+        return UpLoadFile(params, callback);
+    }
     /**
      * 下载文件
      *
