@@ -62,6 +62,14 @@ public class KHttpUtils {
         return x.http().post(params, callback);
     }
 
+    /**
+     * 上传文件
+     *
+     * @param params   请求参数
+     * @param file     要串的文件
+     * @param callback 回调
+     * @return
+     */
     public static Callback.Cancelable UpLoadFile(RequestParams params, File file, Callback.CommonCallback callback) {
         List<KeyValue> list = new ArrayList<>();
         list.add(new KeyValue("file", file));
@@ -69,6 +77,7 @@ public class KHttpUtils {
         params.setRequestBody(body);
         return UpLoadFile(params, callback);
     }
+
     /**
      * 下载文件
      *

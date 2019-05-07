@@ -1,9 +1,12 @@
 package mo.lib.http;
 
+import android.text.TextUtils;
+
 import org.xutils.common.Callback;
 import org.xutils.common.util.LogUtil;
 
 import java.lang.reflect.ParameterizedType;
+import java.net.HttpRetryException;
 
 /**
  * @ author：mo
@@ -75,8 +78,10 @@ public class KCallBack<T> implements Callback.CommonCallback<String> {
      */
     @Override
     public void onFinished() {
-        if (!isError && httpReault != null) {
+        if (!isError && !TextUtils.isEmpty(httpReault)) {
             LogUtil.i(tag + ":网络请求完成");
+        } else {
+            onError(new HttpRetryException("出错了", 0), false);
         }
     }
 
@@ -87,6 +92,7 @@ public class KCallBack<T> implements Callback.CommonCallback<String> {
     @Override
     public void onSuccess(String result) {
         this.httpReault = result;
+        isError = false;
         LogUtil.i(tag + ":网络请求成功=" + result);
 
     }
